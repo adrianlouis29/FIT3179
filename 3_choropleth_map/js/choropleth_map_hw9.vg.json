@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "COVID-19 Active Cases (10 Oct 2020)",
+  "title": "International Arrivals by Country",
   "width": 800,
   "height": 400,
   "projection": {"type": "equalEarth"},
@@ -13,24 +13,23 @@
       "lookup": "properties.NAME",
       "from": {
         "data": {
-          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/data/covid_10_10_2020.csv"
+          "url": "../data/Arrival data.csv"
         },
         "key": "Country",
-        "fields": ["Active"]
+        "fields": ["Arrivals"]
       }
-    },
-    {"calculate": "datum.Active + 0.1", "as": "Active Cases"}
+    }, 
   ],
   "mark": {"type": "geoshape"},
   "encoding": {
     "color": {
-      "field": "Active Cases",
+      "field": "Arrivals",
       "type": "quantitative",
       "scale": {"type": "log"}
     },
     "tooltip": [
       {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-      {"field": "Active", "type": "quantitative"}
+      {"field": "Arrivals", "type": "quantitative", "title": "Arrivals"}
     ]
   }
 }
