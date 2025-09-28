@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "International Arrivals by Country, 2024",
+  "title": "International Arrivals to Australia by Country, 2024",
   "width": 900,
   "height": 500,
   "layer": [
