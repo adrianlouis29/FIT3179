@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>FIT3179 Week 10 - HW10 Visualisations</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    .row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .viz { background: white; padding: 12px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    #mapVis { flex: 1 1 520px; }
+    #departVis { flex: 1 1 700px; }
+    h1 { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>FIT3179 Week 10 - Interactive Visualisations</h1>
+  <p>This page contains two visualisations: a choropleth map (from Week 9) and an interactive departures trend chart. The departures chart includes tooltips, annotations (labels on max values), and a year slider for filtering.</p>
+
+  <div class="row">
+    <div id="mapVis" class="viz">
+      <h3>Choropleth map (existing)</h3>
+      <div id="choropleth_map"></div>
+    </div>
+
+    <div id="departVis" class="viz">
+      <h3>International Departures (1991-2024)</h3>
+      <div id="departures_chart"></div>
+    </div>
+  </div>
+
+  <script>
+  // embed existing choropleth map (file in repo)
+  vegaEmbed('#choropleth_map', 'js/choropleth_map_HW9.vg.json', {actions: false}).catch(console.error);
+
+    // embed new departures vega-lite spec
+    vegaEmbed('#departures_chart', 'js/hw10_departures.vl.json', {renderer: 'canvas'}).catch(console.error);
+  </script>
+</body>
+</html>
