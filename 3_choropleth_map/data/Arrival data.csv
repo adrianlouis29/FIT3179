@@ -1,189 +1,189 @@
-﻿Country,Arrivals
-New Zealand,1929060
-PNG,43340
-Solomon Islands,10970
-Vanuatu,13020
-Kiribati,2690
-Marshall Is,200
-"Micronesia, F S",210
-Nauru,7770
-Palau,240
-Fiji,70020
-Samoa,8650
-Tonga,16660
-Tuvalu,1220
-"UK, CIs & IOM",825370
-Ireland,136370
-Austria,19500
-Belgium,21770
-France,197490
-Germany,202740
-Liechtenstein,130
-Luxembourg,1130
-Monaco,50
-Netherlands,74720
-Switzerland,36810
-Denmark,28670
-Finland,13160
-Iceland,1020
-Norway,21470
-Sweden,33030
-Andorra,70
-Holy See,10
-Italy,97510
-Malta,2440
-Portugal,16910
-San Marino,30
-Spain,52290
-Albania,810
-Bosnia/Herzegov,1070
-Bulgaria,2770
-Croatia,4200
-Cyprus,1720
-North Macedonia,2650
-Greece,7780
-Moldova,220
-Romania,6330
-Slovenia,2520
-Montenegro,310
-Serbia,3190
-Kosovo,270
-Belarus,920
-Czechia,11450
-Estonia,6000
-Hungary,8060
-Latvia,2040
-Lithuania,4660
-Poland,25140
-Russia,18640
-Slovakia,5260
-Ukraine,6320
-Algeria,470
-Egypt,8130
-Libya,100
-Morocco,1120
-Sudan,1040
-Tunisia,440
-South Sudan,340
-Bahrain,420
-Iran,26660
-Iraq,6280
-Israel,12190
-Jordan,3440
-Kuwait,2280
-Lebanon,10030
-Oman,990
-Qatar,580
-Saudi Arabia,12050
-Syria,4460
-Türkiye,13620
-Unit Arab Emir,4520
-Yemen,450
-Myanmar,8340
-Cambodia,25260
-Laos,4140
-Thailand,110550
-Vietnam,234620
-Brunei,5740
-Indonesia,284650
-Malaysia,320310
-Philippines,265060
-Singapore,341150
-Timor-Leste,9140
-China,1343450
-Hong Kong,205770
-Macau,4950
-Mongolia,15360
-Taiwan,187070
-Japan,441720
-"Korea, South",438430
-Bangladesh,43630
-Bhutan,12150
-India,792970
-Maldives,1400
-Nepal,116250
-Pakistan,62450
-Sri Lanka,94480
-Afghanistan,18870
-Armenia,480
-Azerbaijan,460
-Georgia,390
-Kazakhstan,2540
-Kyrgyzstan,380
-Tajikistan,130
-Turkmenistan,100
-Uzbekistan,1380
-Canada,186670
-USA,710790
-Argentina,24070
-Bolivia,460
-Brazil,66770
-Chile,31920
-Colombia,40410
-Ecuador,3490
-Guyana,70
-Paraguay,420
-Peru,8680
-Suriname,30
-Uruguay,2350
-Venezuela,1850
-Belize,60
-Costa Rica,890
-El Salvador,440
-Guatemala,560
-Honduras,270
-Mexico,17110
-Nicaragua,160
-Panama,520
-Antigua/Barbuda,50
-Bahamas,170
-Barbados,160
-Cuba,180
-Dominica,210
-Dominican Rep,300
-Grenada,110
-Haiti,10
-Jamaica,490
-St Kitts/Nevis,200
-St Lucia,100
-St Vinc/Grenad,40
-Trinidad/Tobago,530
-Benin,10
-Burkina Faso,30
-Cameroon,190
-Cent Africa Rep,140
-"Congo, Rep",130
-"Congo, Dem Rep",2130
-Cote d'Ivoire,80
-Gabon,10
-Gambia,60
-Ghana,2710
-Guinea,100
-Liberia,170
-Mali,30
-Mauritania,10
-Nigeria,6960
-Senegal,70
-Sierra Leone,260
-Togo,20
-Angola,70
-Botswana,970
-Burundi,350
-Eritrea,630
-Ethiopia,2300
-Kenya,11090
-Lesotho,90
-Madagascar,210
-Malawi,370
-Mauritius,10460
-Mozambique,270
-Namibia,520
-Rwanda,340
-Seychelles,350
-Somalia,530
-South Africa,70850
-Eswatini,100
-Tanzania,870
-Uganda,1230
-Zambia,1830
-Zimbabwe,10220
+﻿Country,Arrivals,,
+New Zealand,1929060,,1929060
+PNG,43340,,
+Solomon Islands,10970,,
+Vanuatu,13020,,
+Kiribati,2690,,
+Marshall Is,200,,
+"Micronesia, F S",210,,
+Nauru,7770,,
+Palau,240,,
+Fiji,70020,,
+Samoa,8650,,
+Tonga,16660,,
+Tuvalu,1220,,
+"UK, CIs & IOM",825370,,
+Ireland,136370,,
+Austria,19500,,
+Belgium,21770,,
+France,197490,,
+Germany,202740,,
+Liechtenstein,130,,
+Luxembourg,1130,,
+Monaco,50,,
+Netherlands,74720,,
+Switzerland,36810,,
+Denmark,28670,,
+Finland,13160,,
+Iceland,1020,,
+Norway,21470,,
+Sweden,33030,,
+Andorra,70,,
+Holy See,10,,
+Italy,97510,,
+Malta,2440,,
+Portugal,16910,,
+San Marino,30,,
+Spain,52290,,
+Albania,810,,
+Bosnia/Herzegov,1070,,
+Bulgaria,2770,,
+Croatia,4200,,
+Cyprus,1720,,
+North Macedonia,2650,,
+Greece,7780,,
+Moldova,220,,
+Romania,6330,,
+Slovenia,2520,,
+Montenegro,310,,
+Serbia,3190,,
+Kosovo,270,,
+Belarus,920,,
+Czechia,11450,,
+Estonia,6000,,
+Hungary,8060,,
+Latvia,2040,,
+Lithuania,4660,,
+Poland,25140,,
+Russia,18640,,
+Slovakia,5260,,
+Ukraine,6320,,
+Algeria,470,,
+Egypt,8130,,
+Libya,100,,
+Morocco,1120,,
+Sudan,1040,,
+Tunisia,440,,
+South Sudan,340,,
+Bahrain,420,,
+Iran,26660,,
+Iraq,6280,,
+Israel,12190,,
+Jordan,3440,,
+Kuwait,2280,,
+Lebanon,10030,,
+Oman,990,,
+Qatar,580,,
+Saudi Arabia,12050,,
+Syria,4460,,
+Türkiye,13620,,
+Unit Arab Emir,4520,,
+Yemen,450,,
+Myanmar,8340,,
+Cambodia,25260,,
+Laos,4140,,
+Thailand,110550,,
+Vietnam,234620,,
+Brunei,5740,,
+Indonesia,284650,,
+Malaysia,320310,,
+Philippines,265060,,
+Singapore,341150,,
+Timor-Leste,9140,,
+China,1343450,,
+Hong Kong,205770,,
+Macau,4950,,
+Mongolia,15360,,
+Taiwan,187070,,
+Japan,441720,,
+"Korea, South",438430,,
+Bangladesh,43630,,
+Bhutan,12150,,
+India,792970,,
+Maldives,1400,,
+Nepal,116250,,
+Pakistan,62450,,
+Sri Lanka,94480,,
+Afghanistan,18870,,
+Armenia,480,,
+Azerbaijan,460,,
+Georgia,390,,
+Kazakhstan,2540,,
+Kyrgyzstan,380,,
+Tajikistan,130,,
+Turkmenistan,100,,
+Uzbekistan,1380,,
+Canada,186670,,
+USA,710790,,
+Argentina,24070,,
+Bolivia,460,,
+Brazil,66770,,
+Chile,31920,,
+Colombia,40410,,
+Ecuador,3490,,
+Guyana,70,,
+Paraguay,420,,
+Peru,8680,,
+Suriname,30,,
+Uruguay,2350,,
+Venezuela,1850,,
+Belize,60,,
+Costa Rica,890,,
+El Salvador,440,,
+Guatemala,560,,
+Honduras,270,,
+Mexico,17110,,
+Nicaragua,160,,
+Panama,520,,
+Antigua/Barbuda,50,,
+Bahamas,170,,
+Barbados,160,,
+Cuba,180,,
+Dominica,210,,
+Dominican Rep,300,,
+Grenada,110,,
+Haiti,10,,
+Jamaica,490,,
+St Kitts/Nevis,200,,
+St Lucia,100,,
+St Vinc/Grenad,40,,
+Trinidad/Tobago,530,,
+Benin,10,,
+Burkina Faso,30,,
+Cameroon,190,,
+Cent Africa Rep,140,,
+"Congo, Rep",130,,
+"Congo, Dem Rep",2130,,
+Cote d'Ivoire,80,,
+Gabon,10,,
+Gambia,60,,
+Ghana,2710,,
+Guinea,100,,
+Liberia,170,,
+Mali,30,,
+Mauritania,10,,
+Nigeria,6960,,
+Senegal,70,,
+Sierra Leone,260,,
+Togo,20,,
+Angola,70,,
+Botswana,970,,
+Burundi,350,,
+Eritrea,630,,
+Ethiopia,2300,,
+Kenya,11090,,
+Lesotho,90,,
+Madagascar,210,,
+Malawi,370,,
+Mauritius,10460,,
+Mozambique,270,,
+Namibia,520,,
+Rwanda,340,,
+Seychelles,350,,
+Somalia,530,,
+South Africa,70850,,
+Eswatini,100,,
+Tanzania,870,,
+Uganda,1230,,
+Zambia,1830,,
+Zimbabwe,10220,,
