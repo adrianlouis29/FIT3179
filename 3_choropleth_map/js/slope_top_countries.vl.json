@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Slopegraph comparing 1991 and 2024 for top countries",
+  "title": "Change 1991 to 2024 (top countries)",
+  "width": 700,
+  "height": 600,
+  "params": [
+    { "name": "metric", "value": "Departures", "bind": { "input": "select", "options": ["Arrivals","Departures"] } },
+    { "name": "topN", "value": 8, "bind": { "input": "range", "min": 4, "max": 15, "step": 1 } }
+  ],
+  "data": { "url": "data/Departure Time Series.csv" },
+  "transform": [
+    { "calculate": "datum['']", "as": "Country" },
+    { "fold": ["1991","2024"], "as": ["Year","Value"] },
+    { "calculate": "toNumber(datum.Value)", "as": "ValueNum" },
+    { "filter": "datum.Year == '1991' || datum.Year == '2024'" },
+    {
+      "aggregate": [{ "op": "max", "field": "ValueNum", "as": "max2024" }],
+      "groupby": ["Country"]
+    },
+    { "window": [{ "op": "row_number", "as": "rank" }], "sort": [{ "field": "max2024", "order": "descending" }] },
+    { "filter": "datum.rank <= topN" }
+  ],
+  "encoding": {
+    "x": { "field": "Year", "type": "ordinal", "axis": { "labelAngle": 0 } },
+    "y": { "field": "ValueNum", "type": "quantitative", "axis": { "format": "," } },
+    "detail": { "field": "Country" },
+    "color": { "field": "Country", "type": "nominal", "legend": null },
+    "tooltip": [ { "field": "Country" }, { "field": "Year" }, { "field": "ValueNum", "format": "," } ]
+  },
+  "layer": [
+    { "mark": { "type": "line", "interpolate": "monotone", "size": 2 } },
+    { "mark": { "type": "point", "filled": true, "size": 80 } },
+    {
+      "mark": { "type": "text", "dx": -6, "align": "left" },
+      "encoding": { "text": { "field": "Country" }, "x": { "value": 0 } },
+      "transform": [{ "filter": "datum.Year == '1991'" }]
+    },
+    {
+      "mark": { "type": "text", "dx": 6, "align": "right" },
+      "encoding": { "text": { "field": "Country" }, "x": { "value": 1 } },
+      "transform": [{ "filter": "datum.Year == '2024'" }]
+    }
+  ]
+}

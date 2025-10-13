@@ -29,6 +29,24 @@
         <h3>Choropleth map (existing)</h3>
         <div id="choropleth_map" class="viz-area"></div>
       </section>
+    
+      <section class="card">
+        <h3>Heatmap (Arrivals / Departures)</h3>
+        <div class="controls">
+          Metric:
+          <select id="heatmapMetric">
+            <option value="departures">Departures</option>
+            <option value="arrivals">Arrivals</option>
+          </select>
+        </div>
+        <div id="heatmap_card" class="viz-area"></div>
+      </section>
+
+      <section class="card">
+        <h3>Slopegraph - 1991 vs 2024</h3>
+        <div class="controls">Top N: <input id="slopeTopN" type="range" min="4" max="15" value="8" /></div>
+        <div id="slope_card" class="viz-area"></div>
+      </section>
     </div>
 
     <footer>
@@ -44,6 +62,29 @@
     // embed new departures vega-lite spec (size is controlled by CSS container)
     vegaEmbed('#departures_chart', 'js/hw10_departures.vl.json', { renderer: 'canvas', actions: false })
       .catch(console.error);
+
+    // heatmap toggle
+    const heatmapMetric = document.getElementById('heatmapMetric');
+    function embedHeatmap() {
+      const v = heatmapMetric.value === 'arrivals' ? 'js/arrivals_heatmap.vl.json' : 'js/departures_heatmap.vl.json';
+      vegaEmbed('#heatmap_card', v, { actions: false, renderer: 'canvas' }).catch(console.error);
+    }
+    heatmapMetric.addEventListener('change', embedHeatmap);
+    embedHeatmap();
+
+    // slopegraph embed with TopN binding
+    const slopeTop = document.getElementById('slopeTopN');
+    function embedSlope() {
+      // re-embed slope spec (it has bound params for topN)
+      vegaEmbed('#slope_card', 'js/slope_top_countries.vl.json', { actions: false, renderer: 'canvas' })
+        .then(res => {
+          const view = res.view;
+          view.signal('topN', +slopeTop.value).run();
+        })
+        .catch(console.error);
+    }
+    slopeTop.addEventListener('input', embedSlope);
+    embedSlope();
   </script>
 </body>
 </html>
