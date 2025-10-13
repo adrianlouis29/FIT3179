@@ -62,7 +62,7 @@
     vegaEmbed('#departures_chart', 'js/hw10_departures.vl.json', { renderer: 'canvas', actions: false })
       .catch(console.error);
 
-    // heatmap toggle
+    // heatmap embed: simply embed the appropriate spec file (specs contain fixed country filters)
     const heatmapMetric = document.getElementById('heatmapMetric');
     function embedHeatmap() {
       const v = heatmapMetric.value === 'arrivals' ? 'js/arrivals_heatmap.vl.json' : 'js/departures_heatmap.vl.json';

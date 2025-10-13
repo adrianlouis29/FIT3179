@@ -16,9 +16,7 @@
     { "calculate": "toNumber(datum.Value)", "as": "ValueNum" },
     { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
     { "calculate": "datum.Year == '2024' ? toNumber(datum.Value) : 0", "as": "Value2024" },
-    { "joinaggregate": [{ "op": "max", "field": "Value2024", "as": "countryMax2024" }], "groupby": ["Country"] },
-    { "window": [{ "op": "row_number", "as": "rank2024" }], "sort": [{ "field": "countryMax2024", "order": "descending" }] },
-    { "filter": "datum.rank2024 <= 10" }
+    { "filter": "datum.Country === \"New Zealand\" || datum.Country === \"China\" || datum.Country === \"India\" || datum.Country === \"USA\" || datum.Country === \"Japan\" || datum.Country === \"Korea, South\" || datum.Country === \"Singapore\" || datum.Country === \"Malaysia\" || datum.Country === \"Indonesia\"" }
   ],
   "mark": { "type": "rect" },
   "encoding": {
