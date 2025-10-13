@@ -2,8 +2,8 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Heatmap of arrivals by country and year (1991-2024)",
   "title": "Arrivals heatmap (1991-2024)",
-  "width": "container",
-  "height": 620,
+  "width": 700,
+  "height": 420,
   "data": { "url": "data/Arrival Time Series.csv" },
   "transform": [
     { "calculate": "datum['']", "as": "Country" },

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>FIT3179 Assignment 2 - Visualisations</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/hw10.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>FIT3179 Assignment 2 - Interactive Visualisations</h1>
+        <p>Choropleth map and interactive time-series charts (Arrivals / Departures).</p>
+      </div>
+    </header>
+
+    <!-- reuse the same layout and embeds as HW10 -->
+    <!-- ...existing content from HW10.html will be the same embeds -->
+    <div id="content-placeholder"></div>
+
+  </div>
+
+  <script>
+    // load HW10.html content into this page to avoid duplication
+    fetch('HW10.html')
+      .then(r => r.text())
+      .then(html => {
+        // strip out the <head> and body wrapper and inject inner content
+        const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+        if (bodyMatch) document.getElementById('content-placeholder').innerHTML = bodyMatch[1];
+      })
+      .catch(console.error);
+  </script>
+</body>
+</html>
