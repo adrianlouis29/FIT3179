@@ -12,13 +12,11 @@
   "transform": [
     { "calculate": "datum['']", "as": "Country" },
     { "fold": ["1991","2024"], "as": ["Year","Value"] },
-    { "calculate": "toNumber(datum.Value)", "as": "ValueNum" },
-    { "filter": "datum.Year == '1991' || datum.Year == '2024'" },
-    {
-      "aggregate": [{ "op": "max", "field": "ValueNum", "as": "max2024" }],
-      "groupby": ["Country"]
-    },
-    { "window": [{ "op": "row_number", "as": "rank" }], "sort": [{ "field": "max2024", "order": "descending" }] },
+  { "calculate": "toNumber(datum.Value)", "as": "ValueNum" },
+  { "filter": "datum.Year == '1991' || datum.Year == '2024'" },
+  { "calculate": "datum.Year == '2024' ? datum.ValueNum : null", "as": "Value2024" },
+  { "joinaggregate": [{ "op": "max", "field": "Value2024", "as": "countryMax2024" }], "groupby": ["Country"] },
+    { "window": [{ "op": "row_number", "as": "rank" }], "sort": [{ "field": "countryMax2024", "order": "descending" }] },
     { "filter": "datum.rank <= topN" }
   ],
   "encoding": {

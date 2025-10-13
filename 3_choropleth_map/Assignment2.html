@@ -13,27 +13,77 @@
   <div class="container">
     <header>
       <div>
-        <h1>FIT3179 Assignment 2 - Interactive Visualisations</h1>
-        <p>Choropleth map and interactive time-series charts (Arrivals / Departures).</p>
+        <p>Choropleth map (Week 9) and an interactive departures trend chart (tooltips, annotations, year slider).</p>
       </div>
     </header>
 
-    <!-- reuse the same layout and embeds as HW10 -->
-    <!-- ...existing content from HW10.html will be the same embeds -->
-    <div id="content-placeholder"></div>
+    <div class="grid">
+      <section class="card">
+        <h3>International Departures (1991-2024)</h3>
+        <div id="departures_chart" class="viz-area"></div>
+        <div class="controls">Use the slider (below the chart) to focus the year. Hover points for details.</div>
+      </section>
 
+      <section class="card map-card">
+        <h3>Choropleth map (existing)</h3>
+        <div id="choropleth_map" class="viz-area"></div>
+      </section>
+    
+      <section class="card">
+        <h3>Heatmap (Arrivals / Departures)</h3>
+        <div class="controls">
+          Metric:
+          <select id="heatmapMetric">
+            <option value="departures">Departures</option>
+            <option value="arrivals">Arrivals</option>
+          </select>
+        </div>
+        <div id="heatmap_card" class="viz-area"></div>
+      </section>
+
+      <section class="card">
+        <h3>Slopegraph - 1991 vs 2024</h3>
+        <div class="controls">Top N: <input id="slopeTopN" type="range" min="4" max="15" value="8" /></div>
+        <div id="slope_card" class="viz-area"></div>
+      </section>
+    </div>
+
+    <footer>
+      <p>Data source: <a href="https://www.abs.gov.au/statistics">Australian Bureau of Statistics</a></p>
+    </footer>
   </div>
 
   <script>
-    // load HW10.html content into this page to avoid duplication
-    fetch('HW10.html')
-      .then(r => r.text())
-      .then(html => {
-        // strip out the <head> and body wrapper and inject inner content
-        const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-        if (bodyMatch) document.getElementById('content-placeholder').innerHTML = bodyMatch[1];
-      })
+    // embed existing choropleth map (file in repo) - let embed size to container
+  vegaEmbed('#choropleth_map', 'js/choropleth_map_hw9.vg.json', { actions: false, renderer: 'canvas' })
       .catch(console.error);
+
+    // embed new departures vega-lite spec (size is controlled by CSS container)
+    vegaEmbed('#departures_chart', 'js/hw10_departures.vl.json', { renderer: 'canvas', actions: false })
+      .catch(console.error);
+
+    // heatmap toggle
+    const heatmapMetric = document.getElementById('heatmapMetric');
+    function embedHeatmap() {
+      const v = heatmapMetric.value === 'arrivals' ? 'js/arrivals_heatmap.vl.json' : 'js/departures_heatmap.vl.json';
+      vegaEmbed('#heatmap_card', v, { actions: false, renderer: 'canvas' }).catch(console.error);
+    }
+    heatmapMetric.addEventListener('change', embedHeatmap);
+    embedHeatmap();
+
+    // slopegraph embed with TopN binding
+    const slopeTop = document.getElementById('slopeTopN');
+    function embedSlope() {
+      // re-embed slope spec (it has bound params for topN)
+      vegaEmbed('#slope_card', 'js/slope_top_countries.vl.json', { actions: false, renderer: 'canvas' })
+        .then(res => {
+          const view = res.view;
+          view.signal('topN', +slopeTop.value).run();
+        })
+        .catch(console.error);
+    }
+    slopeTop.addEventListener('input', embedSlope);
+    embedSlope();
   </script>
 </body>
 </html>

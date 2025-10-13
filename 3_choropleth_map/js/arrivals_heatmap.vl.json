@@ -4,7 +4,7 @@
   "title": "Arrivals heatmap (1991-2024)",
   "width": 700,
   "height": 420,
-  "data": { "url": "data/Arrival Time Series.csv" },
+  "data": { "url": "data/Arrivals Time Series.csv" },
   "transform": [
     { "calculate": "datum['']", "as": "Country" },
     { "fold": [
@@ -14,7 +14,11 @@
       "2018","2019","2020","2021","2022","2023","2024"
     ], "as": ["Year","Value"] },
     { "calculate": "toNumber(datum.Value)", "as": "ValueNum" },
-    { "calculate": "toNumber(datum.Year)", "as": "YearNum" }
+    { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+    { "calculate": "datum.Year == '2024' ? toNumber(datum.Value) : 0", "as": "Value2024" },
+    { "joinaggregate": [{ "op": "max", "field": "Value2024", "as": "countryMax2024" }], "groupby": ["Country"] },
+    { "window": [{ "op": "row_number", "as": "rank2024" }], "sort": [{ "field": "countryMax2024", "order": "descending" }] },
+    { "filter": "datum.rank2024 <= 10" }
   ],
   "mark": { "type": "rect" },
   "encoding": {
