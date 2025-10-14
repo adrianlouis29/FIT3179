@@ -42,9 +42,15 @@
       </section>
 
       <section class="card">
-        <h3>Slopegraph - 1991 vs 2024</h3>
-        <div class="controls">Top N: <input id="slopeTopN" type="range" min="4" max="15" value="8" /></div>
-        <div id="slope_card" class="viz-area"></div>
+        <h3>Top countries (2024)</h3>
+        <div class="controls">Metric:
+          <select id="barMetric">
+            <option value="departures">Departures</option>
+            <option value="arrivals">Arrivals</option>
+          </select>
+        </div>
+        <div id="bar_card" class="viz-area"></div>
+        <div class="controls">Number of countries: <input id="barTopN" type="range" min="4" max="30" value="10" /></div>
       </section>
     </div>
 
@@ -70,20 +76,35 @@
     }
     heatmapMetric.addEventListener('change', embedHeatmap);
     embedHeatmap();
-
-    // slopegraph embed with TopN binding
-    const slopeTop = document.getElementById('slopeTopN');
-    function embedSlope() {
-      // re-embed slope spec (it has bound params for topN)
-      vegaEmbed('#slope_card', 'js/slope_top_countries.vl.json', { actions: false, renderer: 'canvas' })
-        .then(res => {
-          const view = res.view;
-          view.signal('topN', +slopeTop.value).run();
-        })
-        .catch(console.error);
+    // embed top-N bar chart (switches between departures/arrivals specs)
+    let currentBarView = null;
+    async function embedBar() {
+      const metric = document.getElementById('barMetric').value;
+      const specPath = metric === 'arrivals' ? 'js/top_arrivals_bar.vl.json' : 'js/top_departures_bar.vl.json';
+      try {
+        // remove previous view if present
+        if (currentBarView && currentBarView.finalize) currentBarView.finalize();
+        const embedResult = await vegaEmbed('#bar_card', specPath, { actions: false, renderer: 'canvas' });
+        currentBarView = embedResult.view;
+        // wire topN slider to spec signal
+        const topSlider = document.getElementById('barTopN');
+        if (topSlider) {
+          topSlider.addEventListener('input', async () => {
+            const n = Number(topSlider.value);
+            try { await currentBarView.signal('topN', n).runAsync(); }
+            catch (e) { console.error('Failed to update topN', e); }
+          });
+          // set initial value
+          await currentBarView.signal('topN', Number(topSlider.value)).runAsync();
+        }
+      } catch (err) {
+        console.error('embedBar error', err);
+      }
     }
-    slopeTop.addEventListener('input', embedSlope);
-    embedSlope();
+    // wire metric select to re-embed
+    document.getElementById('barMetric').addEventListener('change', embedBar);
+    // initial embed
+    embedBar();
   </script>
 </body>
 </html>

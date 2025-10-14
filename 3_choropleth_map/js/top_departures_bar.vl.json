@@ -1,0 +1,24 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Top N countries by Departures in 2024",
+  "title": "Top countries by Departures (2024)",
+  "width": 700,
+  "height": 500,
+  "params": [
+    { "name": "topN", "value": 10 }
+  ],
+  "data": { "url": "data/Departure Time Series.csv" },
+  "transform": [
+    { "calculate": "datum['']", "as": "Country" },
+    { "calculate": "toNumber(datum['2024'])", "as": "Value2024" },
+    { "window": [{ "op": "row_number", "as": "rank" }], "sort": [{ "field": "Value2024", "order": "descending" }] },
+    { "filter": "datum.rank <= topN" }
+  ],
+  "encoding": {
+    "y": { "field": "Country", "type": "nominal", "sort": { "field": "Value2024", "op": "max", "order": "descending" }, "axis": { "labelLimit": 200 } },
+    "x": { "field": "Value2024", "type": "quantitative", "axis": { "format": "," } },
+    "tooltip": [{ "field": "Country" }, { "field": "Value2024", "title": "Departures (2024)", "format": "," }],
+    "color": { "value": "#1f77b4" }
+  },
+  "mark": { "type": "bar", "cornerRadius": 3 }
+}
