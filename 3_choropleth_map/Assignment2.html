@@ -13,7 +13,7 @@
   <div class="container">
     <header>
       <div>
-        <p>Choropleth map (Week 9) and an interactive departures trend chart (tooltips, annotations, year slider).</p>
+        <h1 class="page-title">Australian Tourism</h1>
       </div>
     </header>
 
@@ -21,7 +21,7 @@
       <section class="card">
         <h3>International Departures (1991-2024)</h3>
         <div id="departures_chart" class="viz-area"></div>
-        <div class="controls">Use the slider (below the chart) to focus the year. Hover points for details.</div>
+        <div class="controls">Number of countries: <input id="departuresTopN" type="range" min="4" max="30" value="10" /></div>
       </section>
 
       <section class="card map-card">
@@ -65,8 +65,27 @@
       .catch(console.error);
 
     // embed new departures vega-lite spec (size is controlled by CSS container)
-    vegaEmbed('#departures_chart', 'js/hw10_departures.vl.json', { renderer: 'canvas', actions: false })
-      .catch(console.error);
+    let departuresView = null;
+    async function embedDepartures() {
+      try {
+        const res = await vegaEmbed('#departures_chart', 'js/hw10_departures.vl.json', { renderer: 'canvas', actions: false });
+        departuresView = res.view;
+        // wire departures-specific topN slider to this view (independent)
+        const depTop = document.getElementById('departuresTopN');
+        if (depTop) {
+          depTop.addEventListener('input', async () => {
+            const n = Number(depTop.value);
+            try { await departuresView.signal('topN', n).runAsync(); }
+            catch (e) { console.error('Failed to update departures topN', e); }
+          });
+          // set initial topN for departures
+          await departuresView.signal('topN', Number(depTop.value)).runAsync();
+        }
+      } catch (err) {
+        console.error('embedDepartures error', err);
+      }
+    }
+    embedDepartures();
 
     // heatmap embed: simply embed the appropriate spec file (specs contain fixed country filters)
     const heatmapMetric = document.getElementById('heatmapMetric');
@@ -105,6 +124,8 @@
     document.getElementById('barMetric').addEventListener('change', embedBar);
     // initial embed
     embedBar();
+
+    // sliders are independent: barTopN is wired in embedBar(), departuresTopN is wired in embedDepartures()
   </script>
 </body>
 </html>

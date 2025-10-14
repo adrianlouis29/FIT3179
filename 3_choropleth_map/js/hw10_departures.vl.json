@@ -6,6 +6,9 @@
   "data": { "url": "data/Departure data.csv" },
   "transform": [
     { "calculate": "datum['']", "as": "Country" },
+    { "calculate": "toNumber(datum['2024'])", "as": "Value2024" },
+    { "window": [{ "op": "row_number", "as": "rank" }], "sort": [{ "field": "Value2024", "order": "descending" }] },
+    { "filter": "datum.rank <= topN" },
     {
       "fold": [
         "1991","1992","1993","1994","1995","1996","1997","1998","1999",
@@ -19,6 +22,7 @@
     { "calculate": "toNumber(datum.Year)", "as": "YearNum" }
   ],
   "params": [
+    { "name": "topN", "value": 10 },
     {
       "name": "selectedYear",
       "value": 2024,
@@ -100,7 +104,7 @@
   ],
   "title": {
     "text": "International Departures - trend by country (1991-2024)",
-    "subtitle": "Use the year slider to focus. Hover for tooltips. Top value per country is labelled."
+    "subtitle": "Top N countries are shown via the page slider. Top value per country is labelled."
   }
 }
 
