@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Pie chart of arrivals share by state with year slider",
+  "title": "Share of Arrivals by State",
+  "width": 500,
+  "height": 400,
+  "data": { "url": "data/Arrivals by State.csv" },
+  "params": [
+    {
+      "name": "yearSel",
+      "value": 2024,
+      "bind": { "input": "range", "min": 1991, "max": 2025, "step": 1, "name": "Year: " }
+    }
+  ],
+  "transform": [
+    { "calculate": "datum['']", "as": "State" },
+    { "fold": [
+      "1991","1992","1993","1994","1995","1996","1997","1998","1999",
+      "2000","2001","2002","2003","2004","2005","2006","2007","2008",
+      "2009","2010","2011","2012","2013","2014","2015","2016","2017",
+      "2018","2019","2020","2021","2022","2023","2024","2025"
+    ], "as": ["Year","Arrivals"] },
+    { "calculate": "toNumber(datum.Arrivals)", "as": "ArrivalsNum" },
+    { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+    { "filter": "datum.YearNum == yearSel" },
+    { "joinaggregate": [{ "op": "sum", "field": "ArrivalsNum", "as": "Total" }], "groupby": ["YearNum"] },
+    { "calculate": "datum.Total > 0 ? datum.ArrivalsNum / datum.Total : 0", "as": "Share" },
+    { "calculate": "datum.State + ': ' + format(datum.Share, '.0%')", "as": "LegendLabel" },
+    { "filter": "datum.Share > 0" }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "arc", "outerRadius": 180, "innerRadius": 60 },
+      "encoding": {
+        "theta": { "field": "Share", "type": "quantitative", "stack": true },
+        "color": { "field": "LegendLabel", "type": "nominal", "legend": { "title": "State (share)" } },
+        "tooltip": [
+          { "field": "State" },
+          { "field": "ArrivalsNum", "title": "Arrivals", "format": "," },
+          { "field": "Share", "title": "Share", "format": ".1%" }
+        ]
+      }
+    }
+  ]
+}

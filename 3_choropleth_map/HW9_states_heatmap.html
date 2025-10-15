@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arrivals by State and Year</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body { background: #f7fbff; font-family: Arial, sans-serif; }
+    #vis { margin: 40px auto; max-width: 1000px; }
+  </style>
+</head>
+<body>
+  <h1>Arrivals by State and Year</h1>
+  <div id="vis"></div>
+  <script type="text/javascript">
+    vegaEmbed('#vis', 'js/states_year_heatmap.vl.json', { actions: false, renderer: 'canvas' })
+      .then(() => {})
+      .catch(console.error);
+  </script>
+</body>
+</html>

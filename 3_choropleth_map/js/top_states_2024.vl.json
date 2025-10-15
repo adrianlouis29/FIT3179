@@ -1,0 +1,25 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Top Australian States by Arrivals (2024)",
+  "width": 700,
+  "height": 360,
+  "data": { "url": "data/Arrivals by State.csv" },
+  "transform": [
+    { "calculate": "datum['']", "as": "State" },
+    { "fold": ["2024"], "as": ["Year", "Arrivals"] },
+    { "calculate": "toNumber(datum.Arrivals)", "as": "ArrivalsNum" },
+    { "filter": "isValid(datum.ArrivalsNum) && datum.ArrivalsNum > 0" },
+    { "window": [{ "op": "rank", "as": "rank" }], "sort": [{ "field": "ArrivalsNum", "order": "descending" }] },
+    { "filter": "datum.rank <= 8" }
+  ],
+  "mark": { "type": "bar", "cornerRadiusEnd": 3 },
+  "encoding": {
+    "y": { "field": "State", "type": "nominal", "sort": "-x", "title": "State" },
+    "x": { "field": "ArrivalsNum", "type": "quantitative", "title": "Arrivals (2024)", "axis": { "format": "," } },
+    "color": { "value": "#2ca25f" },
+    "tooltip": [
+      { "field": "State", "type": "nominal" },
+      { "field": "ArrivalsNum", "type": "quantitative", "title": "Arrivals", "format": "," }
+    ]
+  }
+}

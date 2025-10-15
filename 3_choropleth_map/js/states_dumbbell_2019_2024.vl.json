@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dumbbell chart comparing 2019 vs 2024 arrivals by state",
+  "title": "Arrivals by State: 2019 vs 2024",
+  "width": 900,
+  "data": { "url": "data/Arrivals by State.csv" },
+  "transform": [
+    { "calculate": "datum['']", "as": "State" },
+    { "fold": ["2019", "2024"], "as": ["Year", "Arrivals"] },
+    { "calculate": "toNumber(datum.Arrivals)", "as": "ArrivalsNum" },
+    { "filter": "isValid(datum.ArrivalsNum)" },
+    { "pivot": "Year", "value": "ArrivalsNum", "groupby": ["State"] },
+    { "calculate": "datum['2024'] - datum['2019']", "as": "Delta" }
+  ],
+  "layer": [
+    { "mark": {"type": "rule", "stroke": "#c0c0c0"},
+      "encoding": {
+        "y": {"field": "State", "type": "nominal", "sort": {"field": "Delta", "order": "descending"}},
+        "x": {"field": "2019", "type": "quantitative", "title": "Arrivals", "axis": {"format": ","}},
+        "x2": {"field": "2024"}
+      }
+    },
+    { "mark": {"type": "point", "filled": true, "color": "#969696"},
+      "encoding": {"y": {"field": "State"}, "x": {"field": "2019"}} },
+    { "mark": {"type": "point", "filled": true, "color": "#2ca25f"},
+      "encoding": {"y": {"field": "State"}, "x": {"field": "2024"}} }
+  ],
+  "encoding": {
+    "tooltip": [
+      {"field": "State"},
+      {"field": "2019", "title": "2019", "format": ","},
+      {"field": "2024", "title": "2024", "format": ","},
+      {"field": "Delta", "title": "Change", "format": ","}
+    ]
+  }
+}

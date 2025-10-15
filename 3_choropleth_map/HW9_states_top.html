@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Top Australian States by Arrivals (2024)</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body { background: #f7fbff; font-family: Arial, sans-serif; }
+    #vis { margin: 40px auto; max-width: 900px; }
+  </style>
+</head>
+<body>
+  <h1>Top Australian States by Arrivals (2024)</h1>
+  <div id="vis"></div>
+  <script type="text/javascript">
+    vegaEmbed('#vis', 'js/top_states_2024.vl.json', { actions: false, renderer: 'canvas' })
+      .then(() => {})
+      .catch(console.error);
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Arrivals by State over time with focus+context brush",
+  "title": "Arrivals by State over Time",
+  "data": { "url": "data/Arrivals by State.csv" },
+  "transform": [
+    { "calculate": "datum['']", "as": "State" },
+    { "fold": [
+      "1991","1992","1993","1994","1995","1996","1997","1998","1999",
+      "2000","2001","2002","2003","2004","2005","2006","2007","2008",
+      "2009","2010","2011","2012","2013","2014","2015","2016","2017",
+      "2018","2019","2020","2021","2022","2023","2024","2025"
+    ], "as": ["Year","Arrivals"] },
+    { "calculate": "toNumber(datum.Arrivals)", "as": "ArrivalsNum" },
+    { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+    { "filter": "isValid(datum.ArrivalsNum) && isValid(datum.YearNum)" }
+  ],
+  "vconcat": [
+    {
+      "height": 260,
+      "width": 1000,
+      "mark": { "type": "area" },
+      "params": [
+        { "name": "time_brush", "select": { "type": "interval", "encodings": ["x"] } },
+        { "name": "state_highlight", "select": { "type": "point", "fields": ["State"] } }
+      ],
+      "transform": [ { "filter": { "param": "time_brush" } } ],
+      "encoding": {
+        "x": { "field": "YearNum", "type": "quantitative", "title": "Year" },
+        "y": { "aggregate": "sum", "field": "ArrivalsNum", "type": "quantitative", "title": "Arrivals" },
+        "color": { "field": "State", "type": "nominal", "legend": { "title": "State" } },
+        "opacity": { "condition": { "param": "state_highlight", "value": 1 }, "value": 0.35 },
+        "tooltip": [
+          { "field": "State" },
+          { "field": "YearNum", "title": "Year" },
+          { "aggregate": "sum", "field": "ArrivalsNum", "title": "Arrivals", "format": "," }
+        ]
+      }
+    },
+    {
+      "height": 60,
+      "width": 1000,
+      "mark": { "type": "area", "color": "#74c476" },
+      "params": [
+        { "name": "time_brush", "select": { "type": "interval", "encodings": ["x"] } }
+      ],
+      "transform": [
+        { "aggregate": [{ "op": "sum", "field": "ArrivalsNum", "as": "Total" }], "groupby": ["YearNum"] }
+      ],
+      "encoding": {
+        "x": { "field": "YearNum", "type": "quantitative", "title": "Year", "axis": { "labelAngle": 0 } },
+        "y": { "field": "Total", "type": "quantitative", "title": null }
+      }
+    }
+  ]
+}
