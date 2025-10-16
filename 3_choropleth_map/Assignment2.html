@@ -7,27 +7,42 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/hw10.css" />
   <style>
     .hero { text-align: center; max-width: 1000px; margin: 0 auto 24px; }
-    .page-title { margin: 16px 0 8px; }
-    .blurb { margin: 0 auto; max-width: 800px; line-height: 1.5; color: #333; }
-
+    :root {
+      --border: #e5e7eb;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --accent: #1f7a8c;
+      --row-bg: #ffffff;
+    }
+    body { color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    .hero { text-align: center; max-width: 1000px; margin: 0 auto 24px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+    .page-title { margin: 16px 0 8px; font-family: Poppins, Inter, sans-serif; font-weight: 700; letter-spacing: 0.3px; }
+    .blurb { margin: 0 auto; max-width: 900px; line-height: 1.55; color: var(--muted); }
     .map-section { margin: 24px auto 32px; max-width: 1100px; text-align: center; }
     .map-wrapper { display: flex; justify-content: center; }
     .map-viz { width: min(100%, 1050px); }
     .section-title { margin: 8px 0 12px; text-align: center; }
-
+    .section-title { margin: 8px 0 12px; text-align: center; font-family: Poppins, Inter, sans-serif; font-weight: 600; color: var(--accent); }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; max-width: 1200px; margin: 24px auto; padding: 0 12px; }
-    .row .col.text { display: flex; flex-direction: column; gap: 8px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; max-width: 1200px; margin: 28px auto; padding: 16px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--row-bg); box-shadow: 0 6px 20px rgba(2,6,23,0.04); }
   .row .col.viz .viz-area { width: 100%; min-height: 380px; }
-    .controls.inline { margin-top: 6px; }
+    .row .col.viz .viz-area { width: 100%; min-height: 380px; }
+    .row h3 { margin: 0 0 6px; font-family: Poppins, Inter, sans-serif; font-weight: 600; }
+    .row p { margin: 0; color: var(--muted); }
 
     /* Alternating layout */
     .alt-left .col.text { order: 1; }
     .alt-left .col.viz { order: 2; }
     .alt-right .col.viz { order: 1; }
     .alt-right .col.text { order: 2; }
+
+  /* For the Arrivals by State Over Time row: stack text under the chart */
+  .row.states-area { grid-template-columns: 1fr; }
+  .row.states-area .col.text { margin-top: 10px; }
 
     @media (max-width: 900px) {
       .row { grid-template-columns: 1fr; }
@@ -45,7 +60,6 @@
 
     <!-- Centered map -->
     <section class="map-section">
-      <h3 class="section-title">International Arrivals by Country</h3>
       <div class="map-wrapper">
         <div id="choropleth_map" class="viz-area map-viz"></div>
       </div>
@@ -55,7 +69,7 @@
     <section class="row alt-left">
       <div class="col text">
         <h3>International Departures (1991-2024)</h3>
-        <p>Australians' outbound travel has generally trended upward, punctuated by clear downturns around major disruptions. Use the slider to focus on the most-travelled destinations in 2024 and see how they compare.</p>
+        <p>Australians' outbound travel has generally trended upward, punctuated by clear downturns around major disruptions. Use the slider to focus on the most-travelled destinations in 2024 and see how they compare. Notice how regional proximity and airline capacity shape the top of the list in most years.</p>
         <div class="controls inline">Countries shown: <input id="departuresTopN" type="range" min="4" max="30" value="10" /></div>
       </div>
       <div class="col viz">
@@ -76,14 +90,14 @@
       </div>
       <div class="col text">
         <h3>Arrivals vs Departures by Country</h3>
-        <p>This heatmap highlights hotspots over time. Switch between arrivals and departures to see how international connections have strengthened or cooled in different periods.</p>
+        <p>This heatmap highlights hotspots over time. Switch between arrivals and departures to see how international connections have strengthened or cooled in different periods. Peaks and troughs often align with currency shifts, seasonal demand, and policy changes.</p>
       </div>
     </section>
 
     <section class="row alt-left">
       <div class="col text">
         <h3>Top Destinations in 2024</h3>
-        <p>In 2024, a handful of destinations account for a large share of trips. Adjust the slider to change how many countries are shown and compare their relative volumes.</p>
+        <p>In 2024, a handful of destinations account for a large share of trips. Adjust the slider to change how many countries are shown and compare their relative volumes. Toggle between arrivals and departures to see how the top list differs for inbound and outbound travel.</p>
         <div class="controls inline">Countries shown: <input id="barTopN" type="range" min="4" max="30" value="10" /></div>
       </div>
       <div class="col viz">
@@ -97,20 +111,20 @@
       </div>
     </section>
 
-    <section class="row alt-right">
+    <section class="row alt-right states-area">
       <div class="col viz">
         <div id="states_area" class="viz-area"></div>
       </div>
       <div class="col text">
         <h3>Arrivals by State Over Time</h3>
-        <p>Tourism is distributed unevenly across states and territories. Use the brush below the chart to focus on particular periods, and click a state to highlight it.</p>
+        <p>Tourism is distributed unevenly across states and territories. Use the brush below the chart to focus on particular periods, and click a state to highlight it. Watch how larger states lead during international booms while others gain share during domestic rebounds.</p>
       </div>
     </section>
 
     <section class="row alt-left">
       <div class="col text">
         <h3>State Rankings by Arrivals</h3>
-  <p>Rankings shift as states gain or lose share across the years. The bump chart shows these movements at a glance - lower ranks indicate higher arrivals.</p>
+        <p>Rankings shift as states gain or lose share across the years. The bump chart shows these movements at a glance - lower ranks indicate higher arrivals. Crossing lines highlight key turning points where states swap positions.</p>
       </div>
       <div class="col viz">
         <div id="states_bump" class="viz-area"></div>
@@ -123,7 +137,7 @@
       </div>
       <div class="col text">
         <h3>Share of Arrivals by State</h3>
-        <p>Select a year to see how the total arrivals are divided across states. Notice how the distribution shifts around major events and recovery periods.</p>
+        <p>Select a year to see how the total arrivals are divided across states. Notice how the distribution shifts around major events and recovery periods. The share mix provides context for the rankings and trends above.</p>
       </div>
     </section>
 
